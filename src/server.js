@@ -6,6 +6,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import orderRoutes from "./routes/orderRoutes.js";
+import logger from "./config/logger.js";
 
 dotenv.config();
 
@@ -35,13 +36,13 @@ mongoose
     serverSelectionTimeoutMS: 5000,
   })
   .then(() => {
-    console.log("Conectado ao MongoDB");
+    logger.info("Conectado ao MongoDB");
     app.listen(port, () => {
-      console.log(`Servidor rodando em http://localhost:${port}`);
+      logger.info(`Servidor rodando em http://localhost:${port}`);
     });
   })
   .catch((error) => {
-    console.error("Erro ao conectar no MongoDB:", error.message);
+    logger.error("Erro ao conectar no MongoDB:", error.message);
     process.exit(1);
   });
 

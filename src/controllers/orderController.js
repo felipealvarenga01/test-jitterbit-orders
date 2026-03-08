@@ -1,4 +1,5 @@
 import Order from "../models/orderModel.js";
+import logger from "../config/logger.js";
 
 function mapRequestToOrderPayload(body) {
   const {
@@ -44,7 +45,7 @@ export async function createOrder(req, res) {
     const order = await Order.create(payload);
     return res.status(201).json(order);
   } catch (error) {
-    console.error("Erro ao criar pedido:", error);
+    logger.error("Erro ao criar pedido:", error);
 
     let status = error.statusCode || 500;
     // Erros de validação do Mongoose devem ser tratados como 400
