@@ -11,7 +11,93 @@
       "description": "Servidor local"
     }
   ],
+  "security": [{ "BearerAuth": [] }],
   "paths": {
+    "/auth/login": {
+      "post": {
+        "security": [],
+        "summary": "Login (obter JWT)",
+        "description": "Retorna access token e refresh token. Use no header: Authorization: Bearer <token> nas rotas de /order. Use o refresh token em POST /auth/refresh para renovar.",
+        "tags": ["Auth"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["username", "password"],
+                "properties": {
+                  "username": { "type": "string", "example": "admin" },
+                  "password": { "type": "string", "example": "admin" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Tokens gerados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": { "type": "string", "description": "Access JWT" },
+                    "refreshToken": { "type": "string", "description": "Refresh JWT (use em POST /auth/refresh)" },
+                    "expiresIn": { "type": "string", "description": "Ex.: 15m" }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "description": "username e password obrigatórios" },
+          "401": { "description": "Usuário ou senha inválidos" },
+          "500": { "description": "Erro ao gerar token" }
+        }
+      }
+    },
+    "/auth/refresh": {
+      "post": {
+        "security": [],
+        "summary": "Renovar tokens",
+        "description": "Envia o refresh token e recebe novo access token e novo refresh token (rotação).",
+        "tags": ["Auth"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["refreshToken"],
+                "properties": {
+                  "refreshToken": { "type": "string", "description": "Refresh token obtido no login" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Novos tokens",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": { "type": "string" },
+                    "refreshToken": { "type": "string" },
+                    "expiresIn": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "description": "refreshToken obrigatório" },
+          "401": { "description": "Refresh token expirado ou inválido" },
+          "500": { "description": "Erro ao renovar token" }
+        }
+      }
+    },
     "/order": {
       "post": {
         "summary": "Criar novo pedido",
@@ -195,6 +281,14 @@
     }
   },
   "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Token obtido em POST /auth/login"
+      }
+    },
     "schemas": {
       "CreateOrderRequest": {
         "type": "object",

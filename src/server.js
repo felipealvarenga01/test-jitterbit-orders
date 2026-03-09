@@ -5,6 +5,8 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import swaggerUi from "swagger-ui-express";
 import orderRoutes from "./routes/orderRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
+import { requireAuth } from "./middleware/authMiddleware.js";
 import logger from "./config/logger.js";
 import { loadOpenApiSecure } from "./config/loadOpenApi.js";
 
@@ -40,7 +42,8 @@ app.use(limiter);
 // Body parser com limite de tamanho (evita payloads gigantes)
 app.use(express.json({ limit: "100kb" }));
 
-app.use("/order", orderRoutes);
+app.use("/auth", authRoutes);
+app.use("/order", requireAuth, orderRoutes);
 
 // Swagger UI em /docs
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(openApiDocument));
