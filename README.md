@@ -6,6 +6,14 @@
 
 > **Orders API** — REST API built with Node.js, Express, and MongoDB (Mongoose) for the Jitterbit technical assessment. Provides CRUD operations for orders: create, get by order number, list all, update, and delete. Accepts requests in a challenge-defined format (`numeroPedido`, `valorTotal`, `dataCriacao`, `items`) and persists a normalized schema in MongoDB. Includes Swagger UI documentation at `/docs`.
 
+### Serviço online para teste
+
+A API está disponível para testes em ambiente de produção. Documentação interativa (Swagger UI):
+
+**https://test-jitterbit-orders.onrender.com/docs**
+
+Lá você pode testar os endpoints (login, criar/listar/atualizar/deletar pedidos) diretamente pelo navegador. Use **Authorize** com o token retornado pelo `POST /auth/login` (informe somente o token, sem a palavra "Bearer").
+
 ### Tecnologias
 
 - **Node.js / Express**
