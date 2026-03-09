@@ -6,8 +6,11 @@ import {
   updateOrder,
   deleteOrder,
 } from "../controllers/orderController.js";
+import { requireAuth } from "../middleware/authMiddleware.js";
 
 const router = Router();
+
+router.use(requireAuth);
 
 // Criar novo pedido (obrigatório)
 router.post("/", createOrder);

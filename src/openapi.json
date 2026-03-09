@@ -286,7 +286,7 @@
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT",
-        "description": "Token obtido em POST /auth/login"
+        "description": "Token obtido em POST /auth/login. No Authorize do Swagger, informe somente o token (não é necessário digitar a palavra \"Bearer\")."
       }
     },
     "schemas": {
