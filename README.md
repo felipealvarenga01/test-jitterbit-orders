@@ -11,7 +11,7 @@
 - **Node.js / Express**
 - **MongoDB** com **Mongoose**
 - **dotenv** para variáveis de ambiente
-,- **Swagger UI** para documentação interativa (`/docs`)
+- **Swagger UI** para documentação interativa (`/docs`)
 
 ### Instalação
 
@@ -29,6 +29,18 @@ cp .env.example .env
 ```
 
 4. Ajuste a variável `MONGODB_URI` se necessário (por padrão, usa `mongodb://localhost:27017/desafio_orders`).
+
+### Primeira execução (rodar o seed)
+
+Antes de subir a API pela primeira vez, é necessário criar o usuário admin no banco. Rode o seed **uma vez** (com o MongoDB já em execução):
+
+```bash
+npm run seed
+```
+
+Isso cria o usuário admin com as credenciais definidas no `.env` (`AUTH_USER` e `AUTH_PASSWORD`; padrão: `admin` / `admin`). O comando é idempotente: rodar de novo não altera nada se o admin já existir.
+
+Depois disso, inicie o servidor normalmente (veja abaixo).
 
 ### Executando o projeto
 
