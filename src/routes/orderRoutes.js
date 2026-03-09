@@ -12,11 +12,11 @@ const router = Router();
 // Criar novo pedido (obrigatório)
 router.post("/", createOrder);
 
+// Listar todos os pedidos (opcional) — antes de /:id para não ser interpretado como id
+router.get("/list", listOrders);
+
 // Obter pedido pelo número (obrigatório)
 router.get("/:id", getOrderById);
-
-// Listar todos os pedidos (opcional)
-router.get("/list", listOrders);
 
 // Atualizar pedido pelo número (opcional)
 router.put("/:id", updateOrder);
