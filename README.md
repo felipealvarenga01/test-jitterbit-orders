@@ -46,7 +46,7 @@ Antes de subir a API pela primeira vez, é necessário criar o usuário admin no
 npm run seed
 ```
 
-Isso cria o usuário admin com as credenciais definidas no `.env` (`AUTH_USER` e `AUTH_PASSWORD`; padrão: `admin` / `admin`). O comando é idempotente: rodar de novo não altera nada se o admin já existir.
+Isso cria o usuário admin com as credenciais definidas no `.env` (`AUTH_USER` e `AUTH_PASSWORD`; padrão: `admin` / `change123`). O comando é idempotente: rodar de novo não altera nada se o admin já existir.
 
 Depois disso, inicie o servidor normalmente (veja abaixo).
 
