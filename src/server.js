@@ -25,8 +25,11 @@ try {
   process.exit(1);
 }
 
-// Em produção, usar BASE_URL para o Swagger/curl apontar para a API real (ex.: https://test-jitterbit-orders.onrender.com)
-const baseUrl = process.env.BASE_URL || `http://localhost:${port}`;
+// Em produção, Swagger/curl devem usar a URL pública. Render define RENDER_EXTERNAL_URL automaticamente.
+const baseUrl =
+  process.env.BASE_URL ||
+  process.env.RENDER_EXTERNAL_URL ||
+  `http://localhost:${port}`;
 if (openApiDocument.servers && openApiDocument.servers.length) {
   openApiDocument.servers = [
     { url: baseUrl.replace(/\/$/, ""), description: baseUrl.includes("localhost") ? "Servidor local" : "Servidor" },
